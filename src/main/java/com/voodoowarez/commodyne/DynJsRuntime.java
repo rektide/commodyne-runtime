@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.dynjs.vertx;
+package com.voodoowarez.commodyne;
 
 import org.dynjs.Config;
 import org.dynjs.exception.ThrowException;
@@ -29,8 +29,9 @@ import java.io.*;
 
 /**
  * @author Lance Ball lball@redhat.com
+ * @author rektide rektide@voodoowarez.com
  */
-public class DynJSVerticleFactory implements VerticleFactory {
+public class DynJsRuntime implements VerticleFactory {
 
     public Container container;
     public Vertx vertx;
