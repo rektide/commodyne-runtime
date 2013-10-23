@@ -5,5 +5,6 @@ import org.dynjs.cli.Arguments;
 import org.dynjs.runtime.DynJS;
 
 public interface RuntimeInitializer {
+	void prepConfig(Config config);
 	void initialize(DynJS dynjs, Config config);
 }

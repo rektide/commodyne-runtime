@@ -1,7 +1,6 @@
 package com.voodoowarez.commodyne;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -14,6 +13,7 @@ import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 
 import com.google.common.base.Supplier;
+import com.voodoowarez.commodyne.init.Nodyn;
 
 public class Runner {
 
@@ -40,14 +40,14 @@ public class Runner {
 		}};
 
 	static public Supplier<RuntimeInitializer[]> DEFAULT_RUNTIME_INITIALIZER = new Supplier<RuntimeInitializer[]>(){
-		public RuntimeInitializer[] get(){
-			return null;
+		public RuntimeInitializer[] get() {
+			return new RuntimeInitializer[] {new Nodyn()};
 		}};
 
 	public Runner(RuntimeInitializer[] initializers, InputStream inputStream, PrintStream outputStream) {
-		this.inputStream = inputStream != null ? inputStream : DEFAULT_INPUT_STREAM.get();
-		this.outputStream = outputStream != null ? outputStream : DEFAULT_OUTPUT_STREAM.get();
-		this.initializers = initializers != null ? initializers : DEFAULT_RUNTIME_INITIALIZER.get();
+		this.inputStream = inputStream == null && DEFAULT_INPUT_STREAM != null ? DEFAULT_INPUT_STREAM.get() : inputStream;
+		this.outputStream = outputStream == null && DEFAULT_OUTPUT_STREAM != null ? DEFAULT_OUTPUT_STREAM.get() : outputStream;
+		this.initializers = initializers == null && DEFAULT_RUNTIME_INITIALIZER != null ? DEFAULT_RUNTIME_INITIALIZER.get() : initializers;
 	};
 
 	public static void main(String[] args) throws IOException {
@@ -65,6 +65,9 @@ public class Runner {
 	public void run(Arguments args) throws CmdLineException, IOException {
 		this.args = args;
 		this.config = args.getConfig();
+		if(this.outputStream == null)
+			
+		this.config.setOutputStream(this.outputStream);
 		this.runtime = new DynJS(config);
 		initialize();
 		launch();
