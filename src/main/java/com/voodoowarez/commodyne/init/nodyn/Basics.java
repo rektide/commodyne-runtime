@@ -11,7 +11,7 @@ import com.voodoowarez.commodyne.RuntimeInitializer;
 
 public class Basics implements RuntimeInitializer {
 
-	public void initialize(DynJS runtime, Config config) {
+	public void initialize(DynJS runtime) {
 		final GlobalObject globalObject = runtime.getExecutionContext().getGlobalObject();
 		final DynObject node = new DynObject(globalObject);
 

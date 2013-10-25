@@ -15,7 +15,7 @@ public class LastJsJs implements RuntimeInitializer {
 	public void prepConfig(Config config) {
 	}
 
-	public void initialize(DynJS runtime, Config config) {
+	public void initialize(DynJS runtime) {
 		InputStream is = runtime.getConfig().getClassLoader().getResourceAsStream("node.js");
 		if (is != null) {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(is));

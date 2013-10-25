@@ -18,9 +18,9 @@ public class Nodyn implements RuntimeInitializer {
 		}
 	}
 
-	public void initialize(DynJS dynjs, Config config) {
+	public void initialize(DynJS dynjs) {
 		for(RuntimeInitializer init : initializers) {
-			init.initialize(dynjs, config);
+			init.initialize(dynjs);
 		}
 	}
 

@@ -12,7 +12,7 @@ public class Npm implements RuntimeInitializer {
 	public void prepConfig(Config config) {
 	}
 
-	public void initialize(DynJS runtime, Config config) {
+	public void initialize(DynJS runtime) {
 		final GlobalObject globalObject = runtime.getExecutionContext().getGlobalObject();
 		new NpmModuleProvider(globalObject);
 	}

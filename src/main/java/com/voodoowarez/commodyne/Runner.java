@@ -64,13 +64,24 @@ public class Runner {
 
 	public void run(Arguments args) throws CmdLineException, IOException {
 		this.args = args;
-		this.config = args.getConfig();
-		if(this.outputStream == null)
-			
-		this.config.setOutputStream(this.outputStream);
-		this.runtime = new DynJS(config);
+		this.config = buildConfiguration();
+		this.runtime = buildRuntime(this.config);
 		initialize();
 		launch();
+	}
+
+	public DynJS makeRuntime() {
+		return buildRuntime(buildConfiguration());
+	}
+
+	public Config buildConfiguration() {
+		final Config config = this.args != null ? this.args.getConfig() : new Config();
+		config.setOutputStream(this.outputStream);
+		return config;
+	}
+
+	static public DynJS buildRuntime(final Config config) {
+		return new DynJS(config);
 	}
 
 	public static Arguments parseArguments(String[] args, Arguments target) throws CmdLineException {
@@ -84,12 +95,12 @@ public class Runner {
 	}
 
 	public void initialize() {
-		this.initialize(this.runtime, this.config);
+		initialize(this.runtime, this.initializers);
 	}
 
-	public void initialize(DynJS dynjs, Config config) {
-		for(RuntimeInitializer initializer : this.initializers){
-			initializer.initialize(dynjs, config);
+	static public void initialize(DynJS dynjs, RuntimeInitializer[] initializers) {
+		for(RuntimeInitializer initializer : initializers){
+			initializer.initialize(dynjs);
 		}
 	}
 
@@ -139,5 +150,29 @@ public class Runner {
 			"--help\tprint help and exit",
 			"--version\tprint version and exit",
 			"FILE\t\tfile to execute"};
+	}
+
+	public InputStream getInputStream() {
+		return inputStream;
+	}
+
+	public void setInputStream(InputStream inputStream) {
+		this.inputStream = inputStream;
+	}
+
+	public PrintStream getOutputStream() {
+		return outputStream;
+	}
+
+	public void setOutputStream(PrintStream outputStream) {
+		this.outputStream = outputStream;
+	}
+
+	public RuntimeInitializer[] getInitializers() {
+		return initializers;
+	}
+
+	public void setInitializers(RuntimeInitializer[] initializers) {
+		this.initializers = initializers;
 	}
 }
