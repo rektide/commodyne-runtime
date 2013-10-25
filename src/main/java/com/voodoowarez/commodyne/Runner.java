@@ -70,8 +70,14 @@ public class Runner {
 		launch();
 	}
 
+	/**
+	* Create a new DynJS runtime and initialize it
+	* @return a new initialized DynJS runtime
+	*/
 	public DynJS makeRuntime() {
-		return buildRuntime(buildConfiguration());
+		final DynJS runtime = buildRuntime(buildConfiguration());
+		initialize(runtime, this.initializers);
+		return runtime;
 	}
 
 	public Config buildConfiguration() {
