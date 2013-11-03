@@ -25,6 +25,6 @@ public class JVertx implements RuntimeInitializer {
 
 	public void initialize(DynJS dynjs) {
 		final GlobalObject globalObject = dynjs.getExecutionContext().getGlobalObject();
-		globalObject.defineReadOnlyGlobalProperty("__jvertex", this.vertx);
+		globalObject.defineReadOnlyGlobalProperty("__jvertx", this.vertx);
 	}
 }

@@ -4,7 +4,7 @@ import org.dynjs.Config;
 
 import com.voodoowarez.commodyne.RuntimeInitializer;
 
-abstract public class MultiRuntimeInitializerRunner implements RuntimeInitializer {
+public class MultiRuntimeInitializerRunner implements RuntimeInitializer {
 
 	protected RuntimeInitializer[] initializers;
 
@@ -22,5 +22,19 @@ abstract public class MultiRuntimeInitializerRunner implements RuntimeInitialize
 		for(RuntimeInitializer init : initializers) {
 			init.initialize(dynjs);
 		}
+	}
+
+	static public RuntimeInitializer[] concat(RuntimeInitializer[]... initses){
+		int len= 0;
+		for(RuntimeInitializer[] inits : initses){
+			len += inits.length;
+		}
+		RuntimeInitializer[] agg= new RuntimeInitializer[len];
+		len = 0;
+		for(RuntimeInitializer[] inits : initses){
+			System.arraycopy(inits, 0, agg, len, inits.length);
+			len += inits.length;
+		}
+		return agg;
 	}
 }
