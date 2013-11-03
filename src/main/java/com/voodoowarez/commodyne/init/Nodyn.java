@@ -1,27 +1,15 @@
 package com.voodoowarez.commodyne.init;
 
-import org.dynjs.Config;
-import org.dynjs.runtime.DynJS;
-
 import com.voodoowarez.commodyne.RuntimeInitializer;
-import com.voodoowarez.commodyne.init.nodyn.Basics;
-import com.voodoowarez.commodyne.init.nodyn.LastJsJs;
+import com.voodoowarez.commodyne.init.nodyn.Global;
+import com.voodoowarez.commodyne.init.nodyn.DynNodeJs;
 import com.voodoowarez.commodyne.init.nodyn.Npm;
 
-public class Nodyn implements RuntimeInitializer {
+public class Nodyn extends MultiRuntimeInitializerRunner {
 
-	private static RuntimeInitializer[] initializers = new RuntimeInitializer[] { new Basics(), new Npm(), new LastJsJs() };
+	private static RuntimeInitializer[] INITIALIZERS = new RuntimeInitializer[] { new Global(), new Npm(), new DynNodeJs() };
 
-	public void prepConfig(Config config) {
-		for(RuntimeInitializer init : initializers) {
-			init.prepConfig(config);
-		}
+	public Nodyn(RuntimeInitializer[] initializers) {
+		super(INITIALIZERS);
 	}
-
-	public void initialize(DynJS dynjs) {
-		for(RuntimeInitializer init : initializers) {
-			init.initialize(dynjs);
-		}
-	}
-
 }

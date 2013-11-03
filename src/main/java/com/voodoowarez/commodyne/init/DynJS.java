@@ -1,14 +1,16 @@
 package com.voodoowarez.commodyne.init;
 
 import org.dynjs.Config;
+import org.dynjs.runtime.DynJS;
 
 import com.voodoowarez.commodyne.RuntimeInitializer;
+import com.voodoowarez.commodyne.init.dynjs.JVertx;
 
-public class DynJS implements RuntimeInitializer {
+public class DynJS extends MultiRuntimeInitializerRunner {
 
-	public void initialize(org.dynjs.runtime.DynJS dynjs) {
-	}
+	public static RuntimeInitializer[] INITIALIZERS = new RuntimeInitializer[] { new JVertx() };
 
-	public void prepConfig(Config config) {
+	public DynJS(RuntimeInitializer[] initializers) {
+		super(INITIALIZERS);
 	}
 }

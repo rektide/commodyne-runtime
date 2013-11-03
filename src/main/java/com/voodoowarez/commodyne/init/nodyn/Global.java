@@ -9,7 +9,7 @@ import org.projectodd.nodyn.util.QueryString;
 
 import com.voodoowarez.commodyne.RuntimeInitializer;
 
-public class Basics implements RuntimeInitializer {
+public class Global implements RuntimeInitializer {
 
 	public void initialize(DynJS runtime) {
 		final GlobalObject globalObject = runtime.getExecutionContext().getGlobalObject();
@@ -22,7 +22,7 @@ public class Basics implements RuntimeInitializer {
 
 		globalObject.defineGlobalProperty("nodyn", node);
 		globalObject.defineGlobalProperty("global", globalObject);
-		globalObject.defineGlobalProperty("__filename", "repl");
+		globalObject.defineGlobalProperty("__filename", "[unknown]");
 	}
 
 	public void prepConfig(Config config) {

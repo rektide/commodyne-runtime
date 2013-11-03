@@ -10,7 +10,7 @@ import org.dynjs.runtime.DynJS;
 
 import com.voodoowarez.commodyne.RuntimeInitializer;
 
-public class LastJsJs implements RuntimeInitializer {
+public class DynNodeJs implements RuntimeInitializer {
 
 	public void prepConfig(Config config) {
 	}
@@ -23,6 +23,7 @@ public class LastJsJs implements RuntimeInitializer {
 			try {
 				is.close();
 			} catch (IOException e) {
+				System.err.println("Cannot load DynJS's node.js scripts; "+e.getMessage());
 			}
 		} else {
 			System.err.println("[ERROR] Cannot initialize Nodyn.");
